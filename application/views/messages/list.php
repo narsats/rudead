@@ -5,7 +5,21 @@
 			<a href="<?=base_url()?>messages/new" class="btn btn-theme">New message</a>
 		  </div>
 		  <h4 class="mb"><i class="fa fa-angle-right"></i> List of messages</h4>
-		  
+		  <?php if(isset($error)):?>
+		  <div class="alert alert-danger">
+			<strong>Oops!</strong> <?=$error?>
+		  </div>
+		  <?php endif;?>
+		  <?php if(isset($success)):?>
+		  <div class="alert alert-success">
+			<strong>Success!</strong> <?=$success?>
+		  </div>
+		  <?php endif;?>
+		  <?php if(isset($warning)):?>
+		  <div class="alert alert-warning">
+			<strong>Heads up!</strong> <?=$warning?>
+		  </div>
+		  <?php endif;?>
 		  <?php if($messages):?>
 		  <table class="table">
 			<thead>

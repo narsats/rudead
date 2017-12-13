@@ -70,6 +70,9 @@ class User extends CI_Model {
 			foreach($row as $key => $value) {
 				$this->$key = $value;
 			}
+			$this->id = (int)$this->id;
+			$this->check_every_days = (int)$this->check_every_days;
+			$this->send_after_days = (int)$this->send_after_days;
 			return $this;
 		}
 		

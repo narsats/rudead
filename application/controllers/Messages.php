@@ -97,9 +97,11 @@ class Messages extends MY_Controller {
 		}
 		$this->load->model("Message", "message");
 		$msg = $this->message->get($id);
+		
 		if (!$msg) {
 			show_404();
 		}
+
 		if ($msg->user_id !== $this->data["userid"]) {
 			show_404();
 		}
