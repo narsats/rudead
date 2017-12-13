@@ -20,10 +20,11 @@ We want the process of checking if you are alive as easy as pushing a button. Pe
 
 Installation
 -------
-1. Clone this repo
+1. [Check for releases](https://hipstercat.fr/gogs/hipstercat/rudead/releases) and download the latest one.
 2. Configure `application/config/config.php` to your needs.
 3. Set up a cronjob to call http://your-installation/cron periodically (ideally once per day).
 4. Go to http://your-installation/register and set up a new account.
+
 
 
 
