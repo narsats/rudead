@@ -12,7 +12,7 @@
 			  <div class="form-group">
 				  <label class="col-sm-2 col-sm-2 control-label">Text</label>
 				  <div class="col-sm-10">
-					  <textarea class="form-control" name="text" placeholder="Your text"><?=$message->text?></textarea>
+					  <div id="text" class="form-control" style="height:100%" name="text" placeholder="Your text" contenteditable="true"><?=$message->text?></div>
 				  </div>
 			  </div>
 			  <button type="submit" class="btn btn-theme">Edit message</button>
@@ -20,3 +20,20 @@
 	  </div>
   </div>
 </div><! --/row -->
+
+<script>
+$(function() {
+	var msg = tinymce.init({
+	  selector: 'div#text',
+	  theme: 'inlite',
+	  plugins: 'media table link paste contextmenu textpattern autolink codesample',
+	  insert_toolbar: 'quickimage quicktable media codesample',
+	  selection_toolbar: 'bold italic | quicklink h2 h3 blockquote',
+	  inline: true,
+	  paste_data_images: true,
+	  content_css: [
+		'//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+		'//www.tinymce.com/css/codepen.min.css']
+	});
+});
+</script>

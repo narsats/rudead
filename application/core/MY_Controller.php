@@ -14,6 +14,8 @@ class MY_Controller extends CI_Controller {
 		
 		if($this->data["user"]) {
 			$this->data["user"]->check_now();
+			$this->load->model("Token", "token");
+			$this->token->remove_tokens($this->data["user"]->id);
 		}
 	}
 }

@@ -5,8 +5,7 @@
   </section>
 
     <!-- js placed at the end of the document so the pages load faster -->
-    <script src="<?=base_url()?>assets/js/jquery.js"></script>
-    <script src="<?=base_url()?>assets/js/jquery-1.8.3.min.js"></script>
+    <!--<script src="<?=base_url()?>assets/js/jquery-1.8.3.min.js"></script>-->
     <script src="<?=base_url()?>assets/js/bootstrap.min.js"></script>
     <script class="include" type="text/javascript" src="<?=base_url()?>assets/js/jquery.dcjqaccordion.2.7.js"></script>
     <script src="<?=base_url()?>assets/js/jquery.scrollTo.min.js"></script>
@@ -16,6 +15,7 @@
 
     <!--common script for all pages-->
     <script src="<?=base_url()?>assets/js/common-scripts.js"></script>
+    <script src="<?=base_url()?>assets/js/tinymce/tinymce.min.js"></script>
     
     <script type="text/javascript" src="<?=base_url()?>assets/js/gritter/js/jquery.gritter.js"></script>
     <script type="text/javascript" src="<?=base_url()?>assets/js/gritter-conf.js"></script>
