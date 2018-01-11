@@ -79,7 +79,7 @@ class User extends CI_Model {
         }
 		
 		public function try_login($email, $plain_password) {
-			$query = $this->db->query("SELECT * FROM users WHERE email = ?", array($email));
+			$query = $this->db->query("SELECT * FROM users WHERE email = ? AND dead = 0", array($email));
 			if ($query->num_rows() == 0) {
 				return false;
 			}

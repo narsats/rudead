@@ -42,7 +42,7 @@
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="index.html" class="logo"><b>RUDEAD</b></a>
+            <a href="<?=base_url()?>" class="logo"><b>RUDEAD</b></a>
             <!--logo end-->
             <div class="top-menu">
             	<ul class="nav pull-right top-menu">
@@ -62,7 +62,7 @@
               <ul class="sidebar-menu" id="nav-accordion">
               
               	  <p class="centered"><img src="<?=base_url()?>assets/img/ui-sam.jpg" class="img-circle" width="60"></p>
-              	  <h5 class="centered"><?=$user->first_name?> <?=$user->last_name?> | #<?=$user->id?></h5>
+              	  <h5 class="centered"><?=$user->first_name?> <?=$user->last_name?></h5>
 
                   <li class="sub-menu">
                       <a href="<?=base_url()?>messages">

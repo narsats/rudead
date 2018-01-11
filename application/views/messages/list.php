@@ -30,7 +30,7 @@
 			<tbody>
 				<?php foreach($messages as $message):?>
 					<tr>
-						<td><?=$message->get_relative()->name?> | #<?=$message->get_relative()->id?></td>
+						<td><?=$message->get_relative()->name?></td>
 						<td><?=$message->text?></td>
 						<td>
 							<a href="<?=base_url()?>messages/edit/<?=$message->id?>" class="btn btn-theme btn-xs">Edit</a> - 
