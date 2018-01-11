@@ -72,6 +72,8 @@ class User extends CI_Model {
 			if ($this->get_user_by_email($email)) {
 				return false;
 			} else {
+				$this->db->insert('users', $this);
+				$this->id = $this->db->insert_id();
 				return $this;
 			}
         }
