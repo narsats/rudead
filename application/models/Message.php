@@ -33,7 +33,7 @@ class Message extends CI_Model {
 			$this->db->insert('messages', $this);
 			$this->id = $this->db->insert_id();
 			
-			return $this->get($id);
+			return $this;
         }
 
         public function save()
