@@ -9,10 +9,28 @@ class User extends CI_Model {
 		public $last_checked;
 		public $check_every_days;
 		public $send_after_days;
+		public $dead;
 
         public function get_user($id)
         {
 			$query = $this->db->query("SELECT * FROM users WHERE id = ?", array($id));
+			if ($query->num_rows() == 0) {
+				return false;
+			}
+			$row = $query->row();
+			foreach($row as $key => $value) {
+				$this->$key = $value;
+			}
+			$this->id = (int)$this->id;
+			$this->check_every_days = (int)$this->check_every_days;
+			$this->send_after_days = (int)$this->send_after_days;
+			$this->dead = (int)$this->dead;
+			return $this;
+        }
+		
+		public function get_user_by_email($email)
+        {
+			$query = $this->db->query("SELECT * FROM users WHERE email = ?", array($email));
 			if ($query->num_rows() == 0) {
 				return false;
 			}
@@ -48,12 +66,14 @@ class User extends CI_Model {
 			$this->last_name = $last_name;
 			$this->check_every_days = 30;
 			$this->send_after_days = 7;
+			$this->last_checked = time();
+			$this->dead = 0;
 			
-			$this->db->insert('users', $this);
-			$this->id = $this->db->insert_id();
-			$this->check_now();
-			
-			return $this;
+			if ($this->get_user_by_email($email)) {
+				return false;
+			} else {
+				return $this;
+			}
         }
 		
 		public function try_login($email, $plain_password) {
@@ -67,17 +87,16 @@ class User extends CI_Model {
 				return false;
 			}
 			
-			foreach($row as $key => $value) {
-				$this->$key = $value;
-			}
-			$this->id = (int)$this->id;
-			$this->check_every_days = (int)$this->check_every_days;
-			$this->send_after_days = (int)$this->send_after_days;
-			return $this;
+			return $this->get_user((int)$row->id);
 		}
 		
 		public function get_all_users() {
 			$query = $this->db->query("SELECT * FROM users");
+			return $query->custom_result_object("User");
+		}
+		
+		public function get_all_users_not_dead() {
+			$query = $this->db->query("SELECT * FROM users WHERE dead = 0");
 			return $query->custom_result_object("User");
 		}
 		

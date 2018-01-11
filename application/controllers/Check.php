@@ -17,7 +17,7 @@ class Check extends CI_Controller {
 		} else {
 			show_404();
 		}
-		echo "<script>window.close();</script>";
+		echo "You can now close this window.";
 	}
 	public function message()
 	{	

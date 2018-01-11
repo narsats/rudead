@@ -33,7 +33,7 @@ class Message extends CI_Model {
 			$this->db->insert('messages', $this);
 			$this->id = $this->db->insert_id();
 			
-			return $this;
+			return $this->get($id);
         }
 
         public function save()
@@ -45,5 +45,10 @@ class Message extends CI_Model {
 		public function delete() {
 			$this->db->query('DELETE FROM messages WHERE id = ?', array($this->id));
 			return true;
+		}
+		
+		public function get_relative() {
+			$this->load->model("Relative");
+			return $this->Relative->get_relative($this->to_relative);
 		}
 }

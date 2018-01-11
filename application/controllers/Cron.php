@@ -8,15 +8,29 @@ class Cron extends CI_Controller {
 	public function index()
 	{	
 		$this->load->model("User", "user");
-		$users = $this->user->get_all_users();
+		$users = $this->user->get_all_users_not_dead();
 		$this->load->helper("email");
 		
 		foreach($users as $user) {
 			$last_checked = new DateTime($user->last_checked, new DateTimeZone("Europe/Paris"));
 			$check_days = new DateInterval("P".$user->check_every_days."D");
 			$send_after_days = new DateInterval("P".$user->send_after_days."D");
+			
 			if((clone $last_checked)->add($check_days)->add($send_after_days) < new DateTime()) {
 				echo $user->email." is dead. RIP.";
+				$user->dead = 1;
+				$user->save();
+				
+				foreach ($user->get_messages() as $message) {
+					$relative = $message->get_relative();
+					
+					$this->data['user'] = $user;
+					$this->data['message'] = $message;
+					$this->data['relative'] = $relative;
+					
+					$body = $this->load->view("emails/message", $this->data, TRUE);
+					send_email($relative->email, "RUDEAD - A message from ".$user->first_name, $body);
+				}
 			} elseif ((clone $last_checked)->add($check_days) < new DateTime()) {
 				echo $user->email." has not given sign of life. Sending check mail";
 				$this->load->model("Token", "token");

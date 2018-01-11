@@ -10,10 +10,6 @@ class Messages extends MY_Controller {
 	}
 	public function index() {
 		$messages = $this->data["user"]->get_messages();
-		foreach($messages as $message) {
-			$this->load->model("Relative", "relative");
-			$message->relative = $this->relative->get_relative($message->to_relative);
-		}
 		$this->data["messages"] = $messages;
 		$this->load->template('messages/list', $this->data);
 	}

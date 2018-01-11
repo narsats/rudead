@@ -16,7 +16,7 @@ class Register extends MY_Controller {
 		$last_name = $this->input->post("last_name", TRUE);
 		
 		if ($password1 !== $password2) {
-			$this->data["error"] = "Password did not match";
+			$this->data["error"] = "Password did not match.";
 		}
 		
 		if ($email && $password1 && $first_name && $last_name) {
@@ -24,16 +24,15 @@ class Register extends MY_Controller {
 			$user = $this->user->new_user($email, $password1, $first_name, $last_name);
 			if (!$user) {
 				// something went wrong
-				$this->data["error"] = "Could not create account";
+				$this->data["error"] = "Could not create account.";
 			} else {
 				// created account
 				$this->session->set_userdata("userid", $user->id);
-				//$this->data["success"] = print_r($user);
 				redirect("messages");
 			}
 		} elseif ($email || $password1 || $first_name || $last_name) {
 			// missing field
-			$this->data["error"] = "One or more fields were empty";
+			$this->data["error"] = "One or more fields were empty.";
 		}
 		
 		

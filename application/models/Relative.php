@@ -7,7 +7,7 @@ class Relative extends CI_Model {
         public $email;
 		public $date_added;
 
-        public function get_relative($id)
+        /*public function get_relative($id)
         {
 			$query = $this->db->query("SELECT * FROM relatives WHERE id = ?", array($id));
 			if ($query->num_rows() == 0) {
@@ -20,7 +20,15 @@ class Relative extends CI_Model {
 			$this->id = (int)$this->id;
 			$this->user_id = (int)$this->user_id;
 			return $this;
-        }
+        }*/
+		
+		public function get_relative($id) {
+			$query = $this->db->query("SELECT * FROM relatives WHERE id = ?", array($id));
+			if ($query->num_rows() == 0) {
+				return false;
+			}
+			return $query->custom_result_object("Relative")[0];
+		}
 
         public function new_relative($user_id, $name, $email)
         {
