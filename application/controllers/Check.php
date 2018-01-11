@@ -19,8 +19,4 @@ class Check extends CI_Controller {
 		}
 		echo "You can now close this window.";
 	}
-	public function message()
-	{	
-		$this->load->view("emails/message", $this->data);
-	}
 }
