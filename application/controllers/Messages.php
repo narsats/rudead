@@ -102,9 +102,8 @@ class Messages extends MY_Controller {
 			show_404();
 		}
 		
-		$this->load->model("Relative", "relative");
-		$msg->relative = $this->relative->get_relative($msg->to_relative);
 		$this->data["message"] = $msg;
+		$this->data["relative"] = $msg->get_relative();;
 		
 		$this->load->view("emails/message", $this->data);
 	}
