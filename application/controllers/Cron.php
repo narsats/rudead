@@ -6,7 +6,7 @@ class Cron extends CI_Controller {
 		parent::__construct();
 	}
 	public function index()
-	{	
+	{
 		$this->load->model("User", "user");
 		$users = $this->user->get_all_users_not_dead();
 		$this->load->helper("email");
@@ -17,11 +17,16 @@ class Cron extends CI_Controller {
 			$send_after_days = new DateInterval("P".$user->send_after_days."D");
 			
 			if((clone $last_checked)->add($check_days)->add($send_after_days) < new DateTime()) {
+				log_message("debug", $user->email." is dead. RIP.");
 				echo $user->email." is dead. RIP.";
 				$user->dead = 1;
 				$user->save();
 				
-				foreach ($user->get_messages() as $message) {
+				$messages = $user->get_messages();
+				
+				log_message("debug", $user->email." : sending ".count($messages)." emails");
+				
+				foreach ($messages as $message) {
 					$relative = $message->get_relative();
 					
 					$this->data['user'] = $user;
@@ -29,10 +34,13 @@ class Cron extends CI_Controller {
 					$this->data['relative'] = $relative;
 					
 					$body = $this->load->view("emails/message", $this->data, TRUE);
+					
+					log_message("debug", $user->email." : sending email to ".$relative->email);
 					send_email($relative->email, "RUDEAD - A message from ".$user->first_name, $body);
 				}
 			} elseif ((clone $last_checked)->add($check_days) < new DateTime()) {
 				echo $user->email." has not given sign of life. Sending check mail";
+				
 				$this->load->model("Token", "token");
 				$token = $this->token->new_token($user->id);
 				$this->data = array();
@@ -41,8 +49,8 @@ class Cron extends CI_Controller {
 				
 				$this->data["messages_sent_in"] = (clone $last_checked)->add($send_after_days)->diff(new DateTime())->d;				
 				
-				//$this->load->view("emails/check", $this->data);
 				$body = $this->load->view("emails/check", $this->data, TRUE);
+				log_message("debug", $user->email." has not given sign of life. Sending check mail.");
 				send_email($user->email, "RUDEAD - Alive check", $body);
 			}
 		}
