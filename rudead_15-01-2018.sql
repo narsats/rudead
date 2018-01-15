@@ -1,1 +1,1 @@
-ALTER TABLE `users` ADD `last_email_sent` DATETIME NULL AFTER `check_every_days`; 
+ALTER TABLE `users` ADD `last_email_sent` DATETIME NOT NULL AFTER `check_every_days` DEFAULT '1900-01-01 00:00:00.000'; 
