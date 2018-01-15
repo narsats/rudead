@@ -47,10 +47,6 @@ class Cron extends CI_Controller {
 					echo $user->email." has not given sign of life. Sending check mail";
 					
 					$user->last_email_sent_now();
-					
-					$this->output->enable_profiler(TRUE);
-					
-					/*
 				
 					$this->load->model("Token", "token");
 					$token = $this->token->new_token($user->id);
@@ -63,9 +59,6 @@ class Cron extends CI_Controller {
 					$body = $this->load->view("emails/check", $this->data, TRUE);
 					log_message("debug", $user->email." has not given sign of life. Sending check mail.");
 					send_email($user->email, "RUDEAD - Alive check", $body);
-					*/
-					
-					
 				} else {
 					echo $user->email." has not given sign of life but sent last email on ".$last_email_sent->format("Y-m-d H:i:s");
 					log_message("debug", $user->email." has not given sign of life but sent last email on ".$last_email_sent->format("Y-m-d H:i:s"));
