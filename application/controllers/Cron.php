@@ -13,12 +13,14 @@ class Cron extends CI_Controller {
 		
 		foreach($users as $user) {
 			$last_checked = new DateTime($user->last_checked, new DateTimeZone("Europe/Paris"));
+			$last_email_sent = new DateTime($user->last_email_sent, new DateTimeZone("Europe/Paris"));
 			$check_days = new DateInterval("P".$user->check_every_days."D");
 			$send_after_days = new DateInterval("P".$user->send_after_days."D");
 			
 			if((clone $last_checked)->add($check_days)->add($send_after_days) < new DateTime()) {
 				log_message("debug", $user->email." is dead. RIP.");
 				echo $user->email." is dead. RIP.";
+				
 				$user->dead = 1;
 				$user->save();
 				
@@ -37,21 +39,37 @@ class Cron extends CI_Controller {
 					
 					log_message("debug", $user->email." : sending email to ".$relative->email);
 					send_email($relative->email, "RUDEAD - A message from ".$user->first_name, $body);
+					$user->last_email_sent = time();
+					$user->save();
 				}
 			} elseif ((clone $last_checked)->add($check_days) < new DateTime()) {
-				echo $user->email." has not given sign of life. Sending check mail";
+				if ((clone $last_email_sent)->add($check_days) < new DateTime()) {
+					echo $user->email." has not given sign of life. Sending check mail";
+					
+					$user->last_email_sent_now();
+					
+					$this->output->enable_profiler(TRUE);
+					
+					/*
 				
-				$this->load->model("Token", "token");
-				$token = $this->token->new_token($user->id);
-				$this->data = array();
-				$this->data["user"] = $user;
-				$this->data["token"] = $token;
-				
-				$this->data["messages_sent_in"] = (clone $last_checked)->add($send_after_days)->diff(new DateTime())->d;				
-				
-				$body = $this->load->view("emails/check", $this->data, TRUE);
-				log_message("debug", $user->email." has not given sign of life. Sending check mail.");
-				send_email($user->email, "RUDEAD - Alive check", $body);
+					$this->load->model("Token", "token");
+					$token = $this->token->new_token($user->id);
+					$this->data = array();
+					$this->data["user"] = $user;
+					$this->data["token"] = $token;
+					
+					$this->data["messages_sent_in"] = (clone $last_checked)->add($send_after_days)->diff(new DateTime())->d;				
+					
+					$body = $this->load->view("emails/check", $this->data, TRUE);
+					log_message("debug", $user->email." has not given sign of life. Sending check mail.");
+					send_email($user->email, "RUDEAD - Alive check", $body);
+					*/
+					
+					
+				} else {
+					echo $user->email." has not given sign of life but sent last email on ".$last_email_sent->format("Y-m-d H:i:s");
+					log_message("debug", $user->email." has not given sign of life but sent last email on ".$last_email_sent->format("Y-m-d H:i:s"));
+				}
 			}
 		}
 	}

@@ -7,6 +7,7 @@ class User extends CI_Model {
         public $last_name;
 		public $hashed_password;
 		public $last_checked;
+		public $last_email_sent;
 		public $check_every_days;
 		public $send_after_days;
 		public $dead;
@@ -21,10 +22,7 @@ class User extends CI_Model {
 			foreach($row as $key => $value) {
 				$this->$key = $value;
 			}
-			$this->id = (int)$this->id;
-			$this->check_every_days = (int)$this->check_every_days;
-			$this->send_after_days = (int)$this->send_after_days;
-			$this->dead = (int)$this->dead;
+			$this->cast_attributes();
 			return $this;
         }
 		
@@ -38,11 +36,16 @@ class User extends CI_Model {
 			foreach($row as $key => $value) {
 				$this->$key = $value;
 			}
+			$this->cast_attributes();
+			return $this;
+        }
+		
+		private function cast_attributes() {
 			$this->id = (int)$this->id;
 			$this->check_every_days = (int)$this->check_every_days;
 			$this->send_after_days = (int)$this->send_after_days;
-			return $this;
-        }
+			$this->dead = (int)$this->dead;
+		}
 		
 		public function get_relatives()
         {
@@ -67,6 +70,7 @@ class User extends CI_Model {
 			$this->check_every_days = 30;
 			$this->send_after_days = 7;
 			$this->last_checked = time();
+			$this->last_email_sent = time();
 			$this->dead = 0;
 			
 			if ($this->get_user_by_email($email)) {
@@ -113,4 +117,8 @@ class User extends CI_Model {
 			$this->db->update('users', $this, array('id' => $this->id));
 			return $this;
         }
+		
+		public function last_email_sent_now() {
+			$this->db->query("UPDATE users SET last_email_sent = NOW() WHERE id = ?", array($this->id));
+		}
 }

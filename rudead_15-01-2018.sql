@@ -1,0 +1,1 @@
+ALTER TABLE `users` ADD `last_email_sent` DATETIME NOT NULL AFTER `check_every_days`; 
