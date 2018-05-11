@@ -47,6 +47,7 @@ class Token extends CI_Model {
 	}
 	
 	public function use_token() {
+		log_message("error", "User has checked from token!");
 		$this->db->query("UPDATE users SET last_checked = NOW() WHERE id = ?", array($this->user_id));
 		$this->db->query("DELETE FROM tokens WHERE id = ?", array($this->id));
 	}
