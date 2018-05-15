@@ -12,12 +12,16 @@ class Cron extends CI_Controller {
 		$this->load->helper("email");
 		
 		foreach($users as $user) {
+			log_message("debug", "1 ".$user->email." has last_checked ".$user->last_checked);
 			$last_checked = new DateTime($user->last_checked, new DateTimeZone("Europe/Paris"));
 			$last_email_sent = new DateTime($user->last_email_sent, new DateTimeZone("Europe/Paris"));
 			$check_days = new DateInterval("P".$user->check_every_days."D");
 			$send_after_days = new DateInterval("P".$user->send_after_days."D");
 			
+			log_message("debug", "2 ".$user->email." has last_checked ".$user->last_checked);
+			
 			if((clone $last_checked)->add($check_days)->add($send_after_days) < new DateTime()) {
+				log_message("debug", "3 ".$user->email." has last_checked ".$user->last_checked);
 				log_message("debug", $user->email." is dead. RIP.");
 				echo $user->email." is dead. RIP.";
 				
@@ -43,7 +47,9 @@ class Cron extends CI_Controller {
 					$user->save();
 				}
 			} elseif ((clone $last_checked)->add($check_days) < new DateTime()) {
+				log_message("debug", "4 ".$user->email." has last_checked ".$user->last_checked);
 				if ((clone $last_email_sent)->add($check_days) < new DateTime()) {
+					log_message("debug", "5 ".$user->email." has last_checked ".$user->last_checked);
 					echo $user->email." has not given sign of life. Sending check mail";
 					
 					$user->last_email_sent_now();
@@ -59,6 +65,7 @@ class Cron extends CI_Controller {
 					$body = $this->load->view("emails/check", $this->data, TRUE);
 					log_message("debug", $user->email." has not given sign of life. Sending check mail.");
 					send_email($user->email, "RUDEAD - Alive check", $body);
+					log_message("debug", "6 ".$user->email." has last_checked ".$user->last_checked);
 				} else {
 					echo $user->email." has not given sign of life but sent last email on ".$last_email_sent->format("Y-m-d H:i:s");
 					log_message("debug", $user->email." has not given sign of life but sent last email on ".$last_email_sent->format("Y-m-d H:i:s"));
