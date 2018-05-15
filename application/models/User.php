@@ -107,6 +107,7 @@ class User extends CI_Model {
 		}
 		
 		public function check_now() {
+			log_message("debug", print_r(debug_backtrace(), TRUE));
 			$query = $this->db->query("UPDATE users SET last_checked = NOW() WHERE id = ?", array($this->id));
 			$this->last_checked = time();
 			return $this;
