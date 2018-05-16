@@ -19,9 +19,14 @@ class Login extends MY_Controller {
 				// bad login/password
 				$this->data["error"] = "Bad login/password";
 			} else {
-				// logged in
-				$this->session->set_userdata("userid", $user->id);
-				redirect("messages");
+				if ($user->dead) {
+					// user is dead, cannot login again!
+					$this->data["error"] = "You are considered dead, so you can't log in anymore. All your death messages have been sent.";
+				} else {
+					// logged in
+					$this->session->set_userdata("userid", $user->id);
+					redirect("messages");
+				}
 			}
 		} elseif ($email || $password) {
 			// missing field
