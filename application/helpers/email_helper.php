@@ -15,7 +15,7 @@ function send_email($to, $subject, $body) {
 	
 	$CI->email->initialize($config);
 
-	$CI->email->from('toulza.jean@gmail.com', 'RUDEAD');
+	$CI->email->from('rudead@hipstercat.fr', 'RUDEAD');
 	$CI->email->to($to);
 
 	$CI->email->subject($subject);
