@@ -46,9 +46,6 @@ class Relatives extends MY_Controller {
 		if (!$rel) {
 			show_404();
 		}
-		if ($rel->user_id !== $this->data["userid"]) {
-			show_404();
-		}
 		
 		$rel->delete();
 		redirect("relatives");
@@ -64,9 +61,6 @@ class Relatives extends MY_Controller {
 		if (!$rel) {
 			show_404();
 		}
-		if ($rel->user_id !== $this->data["userid"]) {
-			show_404();
-		}
 		
 		$name = $this->input->post("name", TRUE);
 		$email = $this->input->post("email", TRUE);
@@ -78,6 +72,7 @@ class Relatives extends MY_Controller {
 			redirect("relatives");
 		} elseif ($name || $email) {
 			// missing field
+			$this->data["error"] = "One or more fields were empty";
 		}
 		
 		
