@@ -54,6 +54,13 @@ class User extends CI_Model {
 			return $query->custom_result_object("Relative");
         }
 		
+		public function get_webhooks()
+        {
+			$this->load->model("Webhook");
+			$query = $this->db->query("SELECT * FROM webhooks WHERE user_id = ?", array($this->id));
+			return $query->custom_result_object("Webhook");
+        }
+		
 		public function get_messages()
         {
 			$this->load->model("Message");

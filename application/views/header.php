@@ -77,6 +77,13 @@
                           <span>Relatives</span>
                       </a>
                   </li>
+				  
+				  <li class="sub-menu">
+                      <a href="<?=base_url()?>webhooks">
+                          <i class="fa fa-link"></i>
+                          <span>Webhooks</span>
+                      </a>
+                  </li>
                   <li class="sub-menu">
                       <a href="<?=base_url()?>preferences">
                           <i class="fa fa-cogs"></i>

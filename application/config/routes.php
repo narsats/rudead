@@ -55,3 +55,4 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route["messages/new"] = "messages/newdeath";
 $route["relatives/new"] = "relatives/newrelative";
+$route["webhooks/new"] = "webhooks/newwebhook";

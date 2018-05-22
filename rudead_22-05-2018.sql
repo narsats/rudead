@@ -1,0 +1,3 @@
+CREATE TABLE `rudead`.`webhooks` ( `id` INT NOT NULL AUTO_INCREMENT , `method` VARCHAR(10) NOT NULL , `url` VARCHAR(255) NOT NULL , `content` VARCHAR(1000) NULL , `expect_code` INT NULL , `user_id` INT NOT NULL , `created_at` TIMESTAMP NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+ALTER TABLE `webhooks` ADD INDEX(`user_id`);
+ALTER TABLE `webhooks` ADD CONSTRAINT `fk_whook_user_id` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT; 
