@@ -22,7 +22,7 @@
 				  </div>
 			  </div>
 			  <div class="form-group">
-				  <label class="col-sm-2 col-sm-2 control-label">Content to send</label>
+				  <label class="col-sm-2 col-sm-2 control-label">Content to send <small>(only used when using POST or PUT)</small></label>
 				  <div class="col-sm-10">
 					  <input type="text" class="form-control" name="content" placeholder='{"method": "tell_children"}' value="<?=$webhook->content?>">
 				  </div>

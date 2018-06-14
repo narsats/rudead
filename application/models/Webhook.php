@@ -49,6 +49,27 @@ class Webhook extends CI_Model {
 			return $this;
         }
 		
+		public function execute() {
+			$this->load->library("PHPRequests");
+			
+			switch ($this->method) {
+				case "GET":
+					return Requests::get($this->url);
+					break;
+				case "POST":
+					return Requests::post($this->url, array(), $this->content);
+				case "PUT":
+					return Requests::put($this->url, array(), $this->content);
+				case "DELETE":
+					return Requests::delete($this->url);
+				case "HEAD":
+					return Requests::head($this->url);
+				default:
+					break;
+			}
+			
+		}
+		
 		public function delete() {
 			$this->db->query('DELETE FROM webhooks WHERE id = ?', array($this->id));
 			return true;

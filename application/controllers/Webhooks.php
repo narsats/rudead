@@ -10,7 +10,33 @@ class Webhooks extends MY_Controller {
 	}	
 	public function index() {
 		$this->data["webhooks"] = $this->data["user"]->get_webhooks();
+		
+		$this->data["error"] = $this->session->flashdata("error");
+		$this->data["success"] = $this->session->flashdata("success");
+		
 		$this->load->template('webhooks/list', $this->data);
+	}
+	
+	public function test($id = false) {
+		if (!$id) {
+			show_404();
+		}
+		$this->load->model("Webhook", "webhook");
+		$whook = $this->webhook->get_webhook($id);
+		if (!$whook) {
+			show_404();
+		}
+		
+		$resp = $whook->execute();
+		
+		if ($resp->status_code != $whook->expect_code) {
+			$this->session->set_flashdata('error', "Your request has been sent but got status code ".$resp->status_code);
+		} else {
+			$this->session->set_flashdata('success', "Your request has been sent and response matched expected code.");
+		}
+		
+		redirect("webhooks");
+		
 	}
 	
 	public function newwebhook()

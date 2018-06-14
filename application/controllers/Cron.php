@@ -44,14 +44,9 @@ class Cron extends CI_Controller {
 				}
 				
 				$webhooks = $user->get_webhooks();
-				
 				if ($webhooks) {
-					$this->load->library("Curl", "curl");
 					foreach ($webhooks as $webhook) {
-						$return_code = $this->curl->request($webhook->method, $webhook->url, $webhook->content); // perform the actual request
-						if ($webhook->expected_code && $return_code != $webhook->expected_code) {
-							log_message("INFO", "Webhook #".$webhook->id." had expected code ".$webhook->expected_code." but got ".$return_code);
-						}
+						$webhook->execute(); // perform the actual request
 					}
 				}
 			} elseif ((clone $last_checked)->add($check_days) < new DateTime()) {

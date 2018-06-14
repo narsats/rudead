@@ -34,7 +34,8 @@
 						<td><?=$webhook->url?></td>
 						<td>
 							<a href="<?=base_url()?>webhooks/edit/<?=$webhook->id?>" class="btn btn-theme btn-xs">Edit</a> - 
-							<a href="<?=base_url()?>webhooks/delete/<?=$webhook->id?>" class="btn btn-theme btn-xs">Delete</a>
+							<a href="<?=base_url()?>webhooks/delete/<?=$webhook->id?>" class="btn btn-theme btn-xs">Delete</a> -
+							<a href="<?=base_url()?>webhooks/test/<?=$webhook->id?>" class="btn btn-theme btn-xs">Test</a>
 						</td>
 					</tr>
 				<?php endforeach;?>
