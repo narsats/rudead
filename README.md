@@ -18,7 +18,23 @@ Checks
 We want the process of checking if you are alive as easy as pushing a button. Periodic emails will be sent to your address, and you just have to click a link to be considered alive.
 ![check email](https://hipstercat.fr/up/5a314fb009f78.png)
 
-Installation from source (recommended)
+Features
+-------
+- Registering open to anyone (not configurable at the moment)
+- User choose check interval
+- User choose interval when messages are sent if not checked before
+- Multiple recipients
+- Multiple messages (even to the same recipient)
+- Webhooks (GET, POST, PUT, DELETE, HEAD supported) to your own website
+- WYSIWYG to send HTML messages
+- Viewing resulting email before they are sent
+- Simple check email: you can tell RUDEAD you are not dead by simply clicking a link (logging in is not needed)
+
+Demo
+-------
+[Head to the RUDEAD demo](https://hipstercat.fr/rudead/). Signup email is never checked, only used as a username.
+
+Installation from source
 -------
 1. `git clone https://hipstercat.fr/gogs/hipstercat/rudead`
 2. Create a database using a [supported CodeIgniter backend](https://www.codeigniter.com/user_guide/general/requirements.html). I use mysql for easy setup.
@@ -28,24 +44,7 @@ Installation from source (recommended)
 6. Set up a cronjob to call http://your-installation/cron periodically (ideally once per day).
 7. Go to http://your-installation/register and set up a new account.
 
-Upgrading from source (recommended)
+Upgrading from source
 -------
 1. `git pull`
 2. Apply SQL updates on your database.
-
-Installation from releases (not recommended)
--------
-1. [Check for releases](https://hipstercat.fr/gogs/hipstercat/rudead/releases) and download the latest one.
-2. Create a database using a [supported CodeIgniter backend](https://www.codeigniter.com/user_guide/general/requirements.html). I use mysql for easy setup.
-3. Configure `application/config/config.php` to your needs.
-4. Configure `application/config/database.php` to your database needs.
-5. Configure `application/helpers/email_helper.php` to your email needs.
-6. Set up a cronjob to call http://your-installation/cron periodically (ideally once per day).
-7. Go to http://your-installation/register and set up a new account.
-
-Upgrading from releases (not recommended)
--------
-1. [Check for new releases](https://hipstercat.fr/gogs/hipstercat/rudead/releases) and download the latest one.
-2. Backup `application/config/config.php`, `application/config/database.php` and `application/helpers/email_helper.php`.
-3. Apply SQL updates on your database.
-4. Restore `application/config/config.php`, `application/config/database.php` and `application/helpers/email_helper.php` to your new installation folder.
