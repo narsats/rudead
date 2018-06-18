@@ -47,6 +47,10 @@ class Relatives extends MY_Controller {
 			show_404();
 		}
 		
+		if ($rel->user_id !== $this->data["userid"]) {
+			show_404();
+		}
+		
 		$rel->delete();
 		redirect("relatives");
 	}
@@ -59,6 +63,10 @@ class Relatives extends MY_Controller {
 		$this->load->model("Relative", "relative");
 		$rel = $this->relative->get_relative($id);
 		if (!$rel) {
+			show_404();
+		}
+		
+		if ($rel->user_id !== $this->data["userid"]) {
 			show_404();
 		}
 		

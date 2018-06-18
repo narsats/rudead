@@ -48,3 +48,7 @@ Upgrading from source
 -------
 1. `git pull`
 2. Apply SQL updates on your database.
+
+Contact/issues
+-------
+Send an email at [rudead@hipstercat.fr](mailto:rudead@hipstercat.fr)

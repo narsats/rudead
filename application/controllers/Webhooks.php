@@ -27,6 +27,10 @@ class Webhooks extends MY_Controller {
 			show_404();
 		}
 		
+		if ($whook->user_id !== $this->data["userid"]) {
+			show_404();
+		}
+		
 		$resp = $whook->execute();
 		
 		if ($resp->status_code != $whook->expect_code) {
@@ -75,6 +79,10 @@ class Webhooks extends MY_Controller {
 			show_404();
 		}
 		
+		if ($whook->user_id !== $this->data["userid"]) {
+			show_404();
+		}
+		
 		$whook->delete();
 		redirect("webhooks");
 	}
@@ -87,6 +95,10 @@ class Webhooks extends MY_Controller {
 		$this->load->model("Webhook", "webhook");
 		$whook = $this->webhook->get_webhook($id);
 		if (!$whook) {
+			show_404();
+		}
+		
+		if ($whook->user_id !== $this->data["userid"]) {
 			show_404();
 		}
 		

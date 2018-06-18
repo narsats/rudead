@@ -4,10 +4,10 @@ function send_email($to, $subject, $body) {
 	
 	$config = array();
 	$config['protocol'] = 'smtp';
-	$config['smtp_host'] = 'in-v3.mailjet.com';
-	$config['smtp_user'] = 'ea85eb22a11adeb94c28b738be9be325';
-	$config['smtp_pass'] = 'b1d65f1903a06f20a7e846a5e5555a39';
-	$config['smtp_port'] = 587;
+	$config['smtp_host'] = 'mail.hipstercat.fr';
+	$config['smtp_user'] = 'hipstercat/mx1-hipstercat-fr';
+	$config['smtp_pass'] = 'hsh7GyJaHr4T60s0H3Dw5yGO';
+	$config['smtp_port'] = 25;
 	$config['smtp_crypto'] = 'tls';
 	$config['mailtype'] = 'html';
 
