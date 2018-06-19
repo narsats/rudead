@@ -32,6 +32,7 @@
 				  </div>
 				  <label class="col-sm-2 col-sm-2 control-label">days after last successful check</label>
 			  </div>
+			  <button type="button" class="btn btn-danger pull-right" onclick='if(confirm("Are you sure?"))window.location="<?=base_url()?>preferences/delete_account"'>Delete account</button>
 			  <button type="submit" class="btn btn-theme">Update</button>
 		  </form>
 	  </div>

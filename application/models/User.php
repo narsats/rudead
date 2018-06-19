@@ -129,4 +129,12 @@ class User extends CI_Model {
 		public function last_email_sent_now() {
 			$this->db->query("UPDATE users SET last_email_sent = NOW() WHERE id = ?", array($this->id));
 		}
+		
+		public function delete() {
+			$this->db->query("DELETE FROM webhooks WHERE user_id = ?", array($this->id));
+			$this->db->query("DELETE FROM tokens WHERE user_id = ?", array($this->id));
+			$this->db->query("DELETE FROM messages WHERE user_id = ?", array($this->id));
+			$this->db->query("DELETE FROM relatives WHERE user_id = ?", array($this->id));
+			$this->db->query("DELETE FROM users WHERE id = ?", array($this->id));
+		}
 }

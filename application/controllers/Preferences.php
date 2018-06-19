@@ -37,4 +37,13 @@ class Preferences extends MY_Controller {
 		}
 		redirect("preferences");
 	}
+	
+	public function delete_account() {
+		$this->data["user"]->delete();
+		
+		$this->session->sess_destroy();
+		$success = "Your account has been deleted";
+		$this->session->set_flashdata('success', $success);
+		redirect("login");
+	}
 }
